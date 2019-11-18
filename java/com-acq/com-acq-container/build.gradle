@@ -1,0 +1,77 @@
+apply plugin: 'war'
+apply plugin: 'application'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+buildscript {
+    repositories {
+        mavenCentral()
+		jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${project.ext.springBootVersion}")
+    }
+}
+
+mainClassName = "com.cokreates.grp.ast.ComAcq"
+
+dependencies {
+	compile project(':service-base')
+	compile project(':com-acq-temp-item-v1')
+    compile project(':com-acq-asset-info-v1')
+   compile project(':com-acq-direct-in-v1')
+   compile project(':com-acq-direct-out-v1')
+
+
+}
+
+bootJar {
+    baseName = 'ast-com-acq'
+    version =  '1.0'
+    mainClassName = 'com.cokreates.grp.ast.ComAcq'
+}
+
+war {
+	baseName = 'ast-com-acq'
+    version =  ''
+	enabled = true
+}
+
+bootRun {
+    main = 'com.cokreates.grp.ast.ComAcq'
+}
+
+jar.enabled = true
+
+springBoot {
+	buildInfo {
+		properties {
+			artifact = 'ast-com-acq'
+			version = '1.0'
+			group = 'com.cokreates.grp.ast'
+			name = 'ComAcq'
+		}
+	}
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${project.ext.springCloudVersion}"
+	}
+}
+
+sourceSets {
+	main {
+        java {
+            srcDir 'src/java'
+        }
+        resources {
+            srcDir 'src/resources'
+        }
+    }
+    test {
+        java {
+            srcDir 'src/java'
+        }
+    }
+}

@@ -1,0 +1,43 @@
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+buildscript {
+    repositories {
+        mavenCentral()
+		jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${project.ext.springBootVersion}")
+    }
+}
+
+dependencies {
+	compile project(':service-base')
+}
+
+bootJar {
+    enabled = false
+}
+
+jar.enabled = true
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${project.ext.springCloudVersion}"
+	}
+}
+
+sourceSets {
+	main {
+        java {
+            srcDirs =  ['src/main/java/draft-get-list-by-temp-oid', 'src/main/java/draft', 'src/main/java/save',
+                        'src/main/java/get-by-oid', 'src/main/java/get-by-oid-before-tagging',
+                        'src/main/java/get-by-oid-after-tagging','src/main/java/get-list',
+                        'src/main/java/asset-tag','src/main/java/get-by-oid-for-tagging',
+                        'src/main/java/get-list-for-tagging-entity', 'src/main/java/get-list-for-available-asset', 
+                        'src/main/java/get-life-cycle-by-oid', 'src/main/java/get-list-asset-out-of-service', 'src/main/java/get-list-tracking',
+            			'src/main/java/get-list-role', 'src/main/java/get-list-role-by-oid', 'src/main/java/update-role']
+            			
+        }
+    }
+}

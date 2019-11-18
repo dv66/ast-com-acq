@@ -1,0 +1,1 @@
+include 'com-acq-temp-item-v1', 'com-acq-asset-info-v1', 'com-acq-direct-in-v1', 'com-acq-direct-out-v1'
